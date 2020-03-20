@@ -3,6 +3,10 @@
 
 int main(void)
 {
+#if !defined(__OpenBSD__)
+	srand(time(NULL));
+#endif
+
 	int width, height;
 	int screenwidth = 80, screenheight = 24;
 	int ch;
@@ -21,8 +25,13 @@ int main(void)
 		}
 	}
 
+#if defined(__OpenBSD__)
 	areachoicewidth = arc4random_uniform(screenwidth);
 	areachoiceheight = arc4random_uniform(screenheight);
+#else
+	areachoicewidth = rand() % screenwidth;
+	areachoiceheight = rand() % screenheight;
+#endif
 
 	theworld[areachoiceheight][areachoicewidth] = walldash;
 
@@ -74,38 +83,63 @@ int main(void)
 		}
 	}
 
+#if defined(__OpenBSD__)
 	doorchoice = arc4random_uniform(areachoicewidth);
-
+#else
+	doorchoice = rand() % areachoicewidth;
+#endif
 	while(areachoicewidth != 0 && doorchoice == areachoicewidth)
 	{
+#if defined(__OpenBSD__)
 		doorchoice = arc4random_uniform(areachoicewidth);
+#else
+		doorchoice = rand() % areachoicewidth;
+#endif
 	}
 
 	theworld[areachoiceheight][doorchoice] = door;
-
+#if defined(__OpenBSD__)
 	doorchoice = areachoicewidth + arc4random_uniform(screenwidthworld - areachoicewidth);
-
+#else
+	doorchoice = areachoicewidth + rand() % (screenwidthworld - areachoicewidth);
+#endif
 	while(areachoicewidth != screenwidthworld - 1 && doorchoice == areachoicewidth)
 	{
+#if defined(__OpenBSD__)
 		doorchoice = arc4random_uniform(screenwidthworld - areachoicewidth);
+#else
+		doorchoice = rand() % (screenwidthworld - areachoicewidth);
+#endif
 	}
 
 	theworld[areachoiceheight][doorchoice] = door;
-
+#if defined(__OpenBSD__)
 	doorchoice = arc4random_uniform(areachoiceheight);
-
+#else
+	doorchoice = rand() % areachoiceheight;
+#endif
 	while(areachoiceheight != 0 && doorchoice == areachoiceheight)
 	{
+#if defined(__OpenBSD__)
 		doorchoice = arc4random_uniform(areachoiceheight);
+#else
+		doorchoice = rand() % areachoiceheight;
+#endif
 	}
 
 	theworld[doorchoice][areachoicewidth] = door;
-
+#if defined(__OpenBSD__)
 	doorchoice = areachoiceheight + arc4random_uniform(screenheightworld - areachoiceheight);
-
+#else
+	doorchoice = areachoiceheight + rand() % (screenheightworld - areachoiceheight);
+#endif
 	while(areachoiceheight != screenheightworld - 1 && doorchoice == areachoiceheight)
 	{
+#if defined(__OpenBSD__)
 		doorchoice = arc4random_uniform(screenheightworld - areachoiceheight);
+#else
+		doorchoice = rand() % (screenheightworld - areachoiceheight);
+#endif
 	}
 
 	theworld[doorchoice][areachoicewidth] = door;
@@ -119,14 +153,22 @@ int main(void)
 			theworlddoor[i][j] = theworld[i][j];
 		}
 	}
-
+#if defined(__OpenBSD__)
 	width = arc4random_uniform(screenwidth);
 	height = arc4random_uniform(screenheight);
-
+#else
+	width = rand() % screenwidth;
+	height = rand() % screenheight;
+#endif
 	while(theworld[height][width] != space)
 	{
+#if defined(__OpenBSD__)
 		width = arc4random_uniform(screenwidth);
 		height = arc4random_uniform(screenheight);
+#else
+		width = rand() % screenwidth;
+		height = rand() % screenheight;
+#endif
 	}
 
 	theworld[height][width] = player;
