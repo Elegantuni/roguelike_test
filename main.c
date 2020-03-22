@@ -280,7 +280,7 @@ int main(void)
 		{
 			if(theworlddoor[height-1][width-1] == door)
 			{
-				theworld[height-1][width-1] == door;
+				theworld[height-1][width-1] = door;
 			}
 			if(theworlddoor[height-1][width] == door)
 			{
@@ -288,7 +288,7 @@ int main(void)
 			}
 			if(theworlddoor[height-1][width+1] == door)
 			{
-				theworld[height-1][width+1] == door;
+				theworld[height-1][width+1] = door;
 			}
 			if(theworlddoor[height][width-1] == door)
 			{
