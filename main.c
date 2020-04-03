@@ -231,7 +231,7 @@ int main(void)
 
 			if(theworld[height][width] != space && theworld[height][width] != door)
 			{
-				width = width++;
+				width++;
 			}
 		}
 		else if(ch == 'd')
